@@ -275,6 +275,7 @@ namespace WebGLSupport
         [MonoPInvokeCallback(typeof(Action<int>))]
         static void OnBlur(int id)
         {
+            if (!instances.ContainsKey(id)) return;
 #if UNITY_WEBGL && !UNITY_EDITOR
             UnityEngine.WebGLInput.captureAllKeyboardInput = true;
             Input.ResetInputAxes(); // Inputの状態リセット
@@ -342,6 +343,7 @@ namespace WebGLSupport
         [MonoPInvokeCallback(typeof(Action<int, string>))]
         static void OnEditEnd(int id, string value)
         {
+            if (!instances.ContainsKey(id)) return;
             if (!instances[id].input.ReadOnly)
             {
                 instances[id].input.text = value;
@@ -350,6 +352,7 @@ namespace WebGLSupport
         [MonoPInvokeCallback(typeof(Action<int, int>))]
         static void OnTab(int id, int value)
         {
+            if (!instances.ContainsKey(id)) return;
             WebGLInputTabFocus.OnTab(instances[id], value);
         }
 
